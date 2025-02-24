@@ -10,16 +10,8 @@ def main():
     client = obsws(host, port)
     client.connect()
 
-    respone = None
 
-
-    response = client.call(requests.GetSceneList())
-    if response.status:
-        scenes = response.getScenes()
-        print("📋 Lista de escenas:")
-        print(scenes)    
-    else:
-        print(f"❌ Error al obtener la lista de escenas: {response.getError()}")
+    get_scenes_info(client)
 
     try:
         respone = client.call(requests.StartRecord())
@@ -35,6 +27,17 @@ def main():
         return
 
     client.disconnect()
+
+
+def get_scenes_info(client):
+    response = client.call(requests.GetSceneList())
+    if response.status:
+        scenes = response.getScenes()
+        print("📋 Lista de escenas:")
+        print(scenes)    
+    else:
+        print(f"❌ Error al obtener la lista de escenas: {response.getError()}")
+
 
 if __name__ == "__main__":
     main()
